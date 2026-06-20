@@ -3,6 +3,7 @@ package com.makar.gamestoreapi.Controllers;
 
 import com.makar.gamestoreapi.Models.Game;
 import com.makar.gamestoreapi.Services.GameService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,13 @@ public class GameController {
 
     public GameController(GameService gameService){
         this.gameService = gameService;
+    }
+
+
+
+    @GetMapping("/")
+    public String home(HttpServletRequest request){
+        return "Hello everynyan "+ request.getSession().getId();
     }
 
     @GetMapping("/games")

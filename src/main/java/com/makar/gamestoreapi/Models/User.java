@@ -1,5 +1,7 @@
 package com.makar.gamestoreapi.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,5 +17,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
     private String userName;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String userPassword;
 }

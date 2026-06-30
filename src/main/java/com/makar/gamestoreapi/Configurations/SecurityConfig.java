@@ -4,9 +4,11 @@ package com.makar.gamestoreapi.Configurations;
 import com.makar.gamestoreapi.Services.MyUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -32,6 +34,7 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests( auth -> auth
+                        .requestMatchers("user/register","user/login").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
@@ -53,13 +56,9 @@ public class SecurityConfig {
         return provider;
     }
 
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//        UserDetails user1 = User
-//                .withDefaultPasswordEncoder()
-//                .username("Shweta")
-//                .password("makar")
-//                .build();
-//        return new InMemoryUserDetailsManager(user1);
-//    }
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
 }

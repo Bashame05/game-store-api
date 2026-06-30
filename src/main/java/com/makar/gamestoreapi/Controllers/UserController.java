@@ -31,4 +31,9 @@ public class UserController {
         return userService.addUser(user);
     }
 
+    @PostMapping("user/login")
+    public String userLogin(@RequestBody User user){
+        return userService.verifyLogin(user);
+    }
+
 }
